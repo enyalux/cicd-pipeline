@@ -1,7 +1,8 @@
 pipeline {
   agent any
 
-  def app
+  def app = docker.image("${registry}:${env.BUILD_ID}")
+  
   stages {
     stage('SCM checkout') {
       steps {
