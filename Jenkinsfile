@@ -32,8 +32,7 @@ pipeline {
     stage('Docker Image Build') {
       steps {
         script {
-          //def app = docker.build("${registry}:${env.Build_ID}")
-          sh 'docker build -t ${registry}:${env.Build_ID}'
+          sh 'docker build -t \"${registry}\":\"${env.Build_ID}\"'
         }
 
       }
