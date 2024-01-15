@@ -1,5 +1,7 @@
 pipeline {
   agent any
+
+  def app
   stages {
     stage('SCM checkout') {
       steps {
@@ -32,7 +34,7 @@ pipeline {
     stage('Docker Image Build') {
       steps {
         script {
-          def customImage = docker.build("${registry}:${env.Build_ID}")
+          app = docker.build("${registry}:${env.Build_ID}")
         }
 
       }
