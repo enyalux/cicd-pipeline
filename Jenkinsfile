@@ -41,9 +41,10 @@ pipeline {
     stage('Docker Publish') {
       steps {
         script {
-          docker.withRegistry('','dockerhub_id'){
-            docker.image("${registry}:${env.BUILD_ID}").push('latest')
-            docker.image("${registry}:${env.BUILD_ID}").push("${env.BUILD_ID}")
+          docker.withRegistry('https://registry.hub.docker.com', 'docker_hub_creds_id')
+          {
+            app.push("${env.BUILD_NUMBER}")
+            app.push("latest")
           }
         }
 
