@@ -32,7 +32,7 @@ pipeline {
     stage('Docker Image Build') {
       steps {
         script {
-          sh 'docker build -t ${registry}:${Build_ID}'
+          sh 'docker build -t ${registry}:${Build_ID} .'
         }
 
       }
