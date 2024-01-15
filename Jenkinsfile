@@ -13,8 +13,9 @@ pipeline {
     stage('Build') {
       steps {
         script {
-          sh 'chmod +x ./scripts/build.sh'
-          sh './scripts/build.sh'
+          def customImage = docker.build("${registry}:${env.Build_ID}").inside{
+            c-> sh 'chmod +x ./scripts/build.sh;./scripts/build.sh'
+          }
         }
 
       }
