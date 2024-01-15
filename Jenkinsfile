@@ -29,6 +29,15 @@ pipeline {
       }
     }
 
+    stage('Docker Image Build') {
+      steps {
+        script {
+          def customImage = docker.build("${registry}:${env.Build_ID}")
+        }
+
+      }
+    }
+
   }
   tools {
     nodejs 'nodejs'
