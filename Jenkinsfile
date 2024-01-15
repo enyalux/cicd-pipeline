@@ -1,7 +1,7 @@
 pipeline {
   agent any
 
-  def app = docker.image("${registry}:${env.BUILD_ID}")
+  //def app = docker.image("${registry}:${env.BUILD_ID}")
   
   stages {
     stage('SCM checkout') {
@@ -35,7 +35,7 @@ pipeline {
     stage('Docker Image Build') {
       steps {
         script {
-          app = docker.build("${registry}:${env.Build_ID}")
+          def app = docker.build("${registry}:${env.Build_ID}")
         }
 
       }
@@ -46,6 +46,8 @@ pipeline {
         script {
           docker.withRegistry('https://registry.hub.docker.com', 'dockerhub_id')
           {
+            //docker.image("${registry}:${env.BUILD_ID}").push("${env.BUILD_NUMBER}")
+            //docker.image("${registry}:${env.BUILD_ID}").push("latest")
             app.push("${env.BUILD_NUMBER}")
             app.push("latest")
           }
