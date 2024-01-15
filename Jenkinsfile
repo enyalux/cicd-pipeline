@@ -14,15 +14,14 @@ pipeline {
     stage('Build') {
       steps {
         script {
-          docker.image("${registry}:${env.BUILD_ID}").inside{
-            c-> sh 'scripts/build.sh'}
-          }
-
+          sh 'scripts/build.sh'
         }
-      }
 
+      }
     }
-    environment {
-      registry = 'marcheol/cicd-hometask'
-    }
+
   }
+  environment {
+    registry = 'marcheol/cicd-hometask'
+  }
+}
