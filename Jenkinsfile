@@ -33,6 +33,7 @@ pipeline {
       steps {
         script {
           sh "docker build -t ${registry}:${env.Build_ID} ."
+          //def app = docker.build("${registry}:${env.Build_ID}")
         }
 
       }
