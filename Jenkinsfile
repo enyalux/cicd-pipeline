@@ -13,9 +13,8 @@ pipeline {
     stage('Build') {
       steps {
         script {
-          docker.image("${registry}:${env.BUILD_ID}").inside{
-            c-> sh 'chmod +x ./scripts/build.sh; scripts/build.sh'
-          }
+          sh 'chmod +x ./scripts/build.sh'
+          sh 'scripts/build.sh'
         }
 
       }
@@ -24,9 +23,7 @@ pipeline {
     stage('Test') {
       steps {
         script {
-          docker.image("${registry}:${env.BUILD_ID}").inside{
-            c-> sh 'scripts/test.sh'
-          }
+          sh 'scripts/test.sh'
         }
 
       }
@@ -36,6 +33,18 @@ pipeline {
       steps {
         script {
           def customImage = docker.build("${registry}:${env.Build_ID}")
+        }
+
+      }
+    }
+
+    stage('Docker Publish') {
+      steps {
+        script {
+          docker.withRegistry('','dockerhub_id'){
+            docker.image("${registry}:${env.BUILD_ID}").push('latest')
+            docker.image("${registry}:${env.BUILD_ID}").push("${env.BUILD_ID}")
+          }
         }
 
       }
