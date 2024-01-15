@@ -1,8 +1,5 @@
 pipeline {
   agent any
-
-  tools {nodejs "nodejs"}
-  
   stages {
     stage('SCM checkout') {
       steps {
@@ -23,6 +20,18 @@ pipeline {
       }
     }
 
+    stage('Test') {
+      steps {
+        script {
+          sh 'scripts/test.sh'
+        }
+
+      }
+    }
+
+  }
+  tools {
+    nodejs 'nodejs'
   }
   environment {
     registry = 'marcheol/cicd-hometask'
